@@ -2,16 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Lab 09: Accept Terms of Service</title>
-    <link href="css/styles.css" rel="stylesheet">
-    <script src="js/script.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 10: The Task List Application</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
-    <h1>Terms of Service</h1>
-    <fieldset><legend>Our terms of service have changed</legend>
-        <p>You'll be redirected to our terms of service page in <strong><span id="seconds"></span></strong> seconds. Or...</p>
-        <p><a href="javascript:;" id="accept">I Accept</a></p>
-        <p id="terms"></p>
-    </fieldset>
+    <header id="main-header" class="bg-dark text-white p-4 mb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="header-title">The Task List Application</h1>
+                </div> 
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="main" class="card card-body">
+            <h2 class="title">Add Task</h2>
+            <form action="" id="addForm" class="form-inline mb-3">
+                <input type="text" class="form-control mr-2" id="item">
+                <input type="submit" value="+" class="btn btn-dark">
+            </form>
+
+            <h2 class="title">Tasks</h2>
+            <ul id="items" class="list-group"></ul>
+        </div>
+    </div>
 </body>
 </html>
