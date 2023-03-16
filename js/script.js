@@ -1,46 +1,69 @@
 // GET FORM AND TASK LIST FROM THE DOM
-let form = document.getElementById('addForm')
-let itemList = document.getElementById('items')
+let form = document.querySelector('form')
+let list = document.querySelector('ul')
+
+// CHECK TO SEE IF THE 'NO TASKS' MESSAGE 
+// SHOULD BE DISPLAYED WHEN THE APPLICATION LOADS
+window.addEventListener('load', (e) => {
+    checkMessageDisplay()
+})
 
 // ADD TASK
 form.addEventListener('submit', (e) => {
     // PREVENT FORM SUBMISSION
     e.preventDefault()
-    // GET THE VALUE FROM THE TEXT BOX
+
+    // GET VALUE FROM TEXT BOX
     let newItem = document.querySelector('#item').value
-    // CREATE NEW LI ELEMENT
+
+    // CREATE NEW LI
     let li = document.createElement('li')
-    // ADD 'list-group-item' CLASS TO LI ELEMENT
+    // ADD CLASS TO LI
     li.className = 'list-group-item'
-    // CREATE TEXT NODE BASED ON INPUT VALUE
+    // CREATE NEW TEXT NODE BASED ON TASK USER ADDED TO FORM
     let text = document.createTextNode(newItem)
-    // APPEND TEXT NODE TO LIST
+    // ADD TEXT TO LI
     li.appendChild(text)
 
     // CREATE THE DELETE BUTTON
     let deleteBtn = document.createElement('button')
-    // ADD NECESSARY BOOTSTRAP CLASSES FOR BUTTONS
+    // ADD BOOTSTRAP CLASSES FOR A BUTTON
     deleteBtn.className = 'btn btn-danger btn-sm float-right delete'
-    // CREATE TEXT NODE, SET IT TO 'X', AND APPEND TO DELETE BUTTON
+    // CREATE TEXT NODE FOR DELETE BUTTON AND SET IT TO 'X'
     let textDelete = document.createTextNode('X')
+    // APPEND TEXT NODE TO DELETE BUTTON
     deleteBtn.appendChild(textDelete)
-    // APPEND DELETE BUTTON TO LIST ITEM
+    // APPEND DELETE BUTTON TO LI
     li.appendChild(deleteBtn)
 
-    // CLEAR THE TEXT BOX
-    document.querySelector('#item').value = ''
+    // ADD LI TO UL 
+    list.appendChild(li)
 
-    // APPEND LI TO LIST
-    itemList.appendChild(li)
+    // CLEAR THE TEXT BOX
+    form.reset()
+
+    // CHECK TO SEE IF THE 'NO TASKS' MESSAGE SHOULD BE DISPLAYED
+    checkMessageDisplay()
 })
 
-itemList.addEventListener('click', (e) => {
-    // CHECK TO SEE IF THE .delete CLASS EXISTS ON LI
+list.addEventListener('click', (e) => {
+    // CHECK AND SEE IF DELETE BUTTON WAS CLICKED ON BUBBLE
     if (e.target.classList.contains('delete')) {
-        // CONFIRM THE DELETION
-        if (confirm(`Are you sure you want to delete task ${e.target.parentElement.innerText}?`)) {
-            // SELECT THE PARENT LI ELEMENT AND THEN DELETE IT
-            itemList.removeChild(e.target.parentElement)
+        // DISPLAY CONFIRMATION OF DELETE TO THE USER
+        if (confirm(`Are you sure you want to delete the ${e.target.parentElement.innerText} task?`)) {
+            // REMOVE THE SELECTED LI 
+            list.removeChild(e.target.parentElement)
+            // CHECK TO SEE IF THE 'NO TASKS' MESSAGE SHOULD BE DISPLAYED
+            checkMessageDisplay()
         }
     }
 })
+
+// FUNCTION TO SHOW OR HIDE 'NO ROWS' ALERT
+function checkMessageDisplay() {
+    if (list.children.length == 0) {
+        document.querySelector('span').classList.add('show')
+    } else {
+        document.querySelector('span').classList.remove('show')
+    }
+}
