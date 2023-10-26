@@ -1,34 +1,31 @@
-// GET FORM AND TASK LIST FROM THE DOM
-let form = document.querySelector('form')
-let list = document.querySelector('ul')
+// GET THE FORM AND TASK LIST FROM THE DOM
+let form = document.getElementById('addForm')
+let list = document.getElementById('items')
 
-// CHECK TO SEE IF THE 'NO TASKS' MESSAGE 
-// SHOULD BE DISPLAYED WHEN THE APPLICATION LOADS
-window.addEventListener('load', (e) => {
-    checkMessageDisplay()
-})
+// CHECK TO SEE IF THE 'NO TASKS' MESSAGE SHOULD BE DISPLAYED
+checkMessageDisplay()
 
 // ADD TASK
 form.addEventListener('submit', (e) => {
-    // PREVENT FORM SUBMISSION
+    // PREVENT THE FORM SUBMISSION
     e.preventDefault()
 
-    // GET VALUE FROM TEXT BOX
-    let newItem = document.querySelector('#item').value
+    // GET THE VALUE FROM THE TEXT BOX
+    let newItem = document.getElementById('item').value
 
     // CREATE NEW LI
     let li = document.createElement('li')
     // ADD CLASS TO LI
     li.className = 'list-group-item'
-    // CREATE NEW TEXT NODE BASED ON TASK USER ADDED TO FORM
+    // CREATE NEW TASK NODE BASED ON TASK USER ADDED TO FORM
     let text = document.createTextNode(newItem)
     // ADD TEXT TO LI
     li.appendChild(text)
 
-    // CREATE THE DELETE BUTTON
+    // CREATE A DELETE BUTTON
     let deleteBtn = document.createElement('button')
     // ADD BOOTSTRAP CLASSES FOR A BUTTON
-    deleteBtn.className = 'btn btn-danger btn-sm float-right delete'
+    deleteBtn.className = 'btn btn-danger btn-sm float-end delete'
     // CREATE TEXT NODE FOR DELETE BUTTON AND SET IT TO 'X'
     let textDelete = document.createTextNode('X')
     // APPEND TEXT NODE TO DELETE BUTTON
@@ -36,7 +33,7 @@ form.addEventListener('submit', (e) => {
     // APPEND DELETE BUTTON TO LI
     li.appendChild(deleteBtn)
 
-    // ADD LI TO UL 
+    // ADD LI TO UL
     list.appendChild(li)
 
     // CLEAR THE TEXT BOX
@@ -46,12 +43,13 @@ form.addEventListener('submit', (e) => {
     checkMessageDisplay()
 })
 
+// HANDLE THE CLICK EVENT OF THE DELETE BUTTON
 list.addEventListener('click', (e) => {
-    // CHECK AND SEE IF DELETE BUTTON WAS CLICKED ON BUBBLE
+    // CHECK AND SEE IF THE DELETE BUTTON WAS CLICKED
     if (e.target.classList.contains('delete')) {
-        // DISPLAY CONFIRMATION OF DELETE TO THE USER
-        if (confirm(`Are you sure you want to delete the ${e.target.parentElement.innerText} task?`)) {
-            // REMOVE THE SELECTED LI 
+        // DISPLAY CONFIRMATION OF THE DELETE TO THE USER
+        if (confirm('Are you sure you want to delete this task?')) {
+            // REMOVE THE SELECTED LI
             list.removeChild(e.target.parentElement)
             // CHECK TO SEE IF THE 'NO TASKS' MESSAGE SHOULD BE DISPLAYED
             checkMessageDisplay()
